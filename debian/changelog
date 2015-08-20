@@ -1,3 +1,9 @@
+pixpybuild (0.2.1) unstable; urgency=low
+
+  * Fix: First create virtualenv, then use python and pip within it
+
+ -- Folker Bernitt <fbernitt@thoughtworks.com>  Wed, 19 Aug 2015 15:55:51 +0000
+
 pixpybuild (0.2) unstable; urgency=low
 
   * Call interpreter directly instead of using shebang because of 127 char

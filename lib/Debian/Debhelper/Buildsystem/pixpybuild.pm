@@ -135,11 +135,13 @@ sub build_python {
 	my $this=shift;
 	my $builddir = abs_path($this->get_builddir());
 	my $venvdir = abs_path($this->get_venv_builddir());
-	my $python = $this->get_python();
-	my $pip = $this->get_pip();
 
 	# create the virtual env
 	doit('virtualenv', $venvdir);
+
+	# only now we have access to python and pip
+	my $python = $this->get_python();
+	my $pip = $this->get_pip();
 
 	# update pip and setuptools
 	$this->doit_in_sourcedir($python, $pip, 'install', '--upgrade', 'pip');

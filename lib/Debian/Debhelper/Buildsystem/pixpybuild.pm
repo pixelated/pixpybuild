@@ -135,21 +135,23 @@ sub build_python {
 	my $this=shift;
 	my $builddir = abs_path($this->get_builddir());
 	my $venvdir = abs_path($this->get_venv_builddir());
+	my $python = $this->get_python();
+	my $pip = $this->get_pip();
 
 	# create the virtual env
 	doit('virtualenv', $venvdir);
 
 	# update pip and setuptools
-	$this->doit_in_sourcedir("${venvdir}/bin/pip", 'install', '--upgrade', 'pip');
-	$this->doit_in_sourcedir("${venvdir}/bin/pip", 'install', '--upgrade', 'setuptools');
+	$this->doit_in_sourcedir($python, $pip, 'install', '--upgrade', 'pip');
+	$this->doit_in_sourcedir($python, $pip, 'install', '--upgrade', 'setuptools');
 
 	# install pip requirements if requirements.txt exists
 	if (-e $this->get_sourcepath('requirements.txt')) {
-		$this->doit_in_sourcedir("${venvdir}/bin/pip", 'install', '--requirement', 'requirements.txt');
+		$this->doit_in_sourcedir($python, $pip, 'install', '--requirement', 'requirements.txt');
 	}
 
 	#$this->doit_in_sourcedir("${venvdir}/bin/pip", 'install', '.');
-	$this->doit_in_sourcedir("${venvdir}/bin/python", "setup.py", "install")
+	$this->doit_in_sourcedir($python, "setup.py", "install");
 }
 
 sub build_makefile {

@@ -1,3 +1,10 @@
+pixpybuild (0.2) unstable; urgency=low
+
+  * Call interpreter directly instead of using shebang because of 127 char
+    limit
+
+ -- Folker Bernitt <fbernitt@thoughtworks.com>  Wed, 19 Aug 2015 15:55:51 +0000
+
 pixpybuild (0.1) unstable; urgency=low
 
   * Initial Release.

@@ -1,0 +1,18 @@
+Source: pixpybuild
+Priority: optional
+Maintainer: Folker Bernitt <fbernitt@thoughtworks.com>
+Build-Depends: debhelper (>= 8.0.0), libmodule-install-perl
+Standards-Version: 3.9.3
+Section: libs
+Homepage: http://pixelated-project.org
+Vcs-Git: https://github.com/pixelated/pixpybuild.git
+Vcs-Browser: https://github.com/pixelated/pixpybuild
+X-Python-Version: >= 2.7
+
+Package: pixpybuild
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, python-setuptools, python(>= 2.6.6-3~), libmodule-install-perl, python-virtualenv, libfile-which-perl
+Description: A debian build helper to package python software via virtualenv
+ A debian build helper to package python software via virtualenv
+

@@ -13,6 +13,8 @@ Package: pixpybuild
 Section: libs
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, python-setuptools, python(>= 2.6.6-3~), libmodule-install-perl, python-virtualenv, libfile-which-perl, libfile-slurp-perl
-Description: A debian build helper to package python software via virtualenv
- A debian build helper to package python software via virtualenv
+Description: debian build helper to package python software via virtualenv
+ if not all dependencies of your software are available as debian packages,
+ you can use pip to install the dependencies into a virtualenv and ship 
+ everything in your package
 

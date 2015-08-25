@@ -5,6 +5,7 @@ use warnings;
 
 use Debian::Debhelper::Dh_Lib qw(error doit escape_shell clean_jobserver_makeflags);
 use File::Spec;
+use File::Slurp qw(edit_file read_dir);
 use base 'Debian::Debhelper::Buildsystem';
 # use base 'Debian::Debhelper::Buildsystem::python_distutils';
 
@@ -229,14 +230,11 @@ sub install_python {
 
     # Fix shebangs so that we use the Python in the final location
     # instead of the Python in the build directory
-    my @binaries = <"$destdir$prefix/$sourcepackage/bin/*">;
-    {
-        local $^I = q{};
-        local @ARGV = grep { -T } @binaries;
-        while ( <> ) {
-            s|^#!.*bin/(env )?python|#!$new_python|;
-            print;
-        }
+    my @files = read_dir("$destdir$prefix/$sourcepackage/bin", prefix => 1);
+    my @scripts = grep { -T } @files;
+
+    for my $script (@scripts) {
+	    edit_file { s|^#!.*bin/(env )?python|#!$new_python| } $script;
     }
 }
 

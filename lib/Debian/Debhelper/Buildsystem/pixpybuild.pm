@@ -208,6 +208,8 @@ sub install_python {
     my $sourcepackage = $this->sourcepackage();
     my $venv = $this->get_venv_builddir();
     my $prefix = $this->get_install_root();
+    my $builddir = abs_path($this->get_builddir());
+    my $install_root = $this->get_install_root();
 
     # Before we copy files, let's make the symlinks in the 'usr/local'
     # relative to the build path.
@@ -239,6 +241,19 @@ sub install_python {
 	    edit_file { s|^#!.*bin/(env )?python|#!$new_python| } $script;
 
 	    chmod $mode & 07777, $script;
+    }
+
+    my $pth_file = "$destdir$prefix/$sourcepackage/lib/python2.7/site-packages/easy-install.pth";
+    if (-T $pth_file) {
+	    my $mode = (stat($pth_file))[2];  # remember perms as edit_file does not keep them
+
+            print "$builddir$install_root(.*)\n";
+
+	    edit_file { s|^$builddir$install_root|$install_root| } $pth_file;
+
+	    chmod $mode & 07777, $pth_file;
+    } else {
+	    print "Did not find $pth_file\n";
     }
 }
 

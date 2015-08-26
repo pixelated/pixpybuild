@@ -234,7 +234,11 @@ sub install_python {
     my @scripts = grep { -T } @files;
 
     for my $script (@scripts) {
+	    my $mode = (stat($script))[2];  # remember perms as edit_file does not keep them
+
 	    edit_file { s|^#!.*bin/(env )?python|#!$new_python| } $script;
+
+	    chmod $mode & 07777, $script;
     }
 }
 

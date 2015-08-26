@@ -1,3 +1,9 @@
+pixpybuild (0.2.3) unstable; urgency=low
+
+  * Fix: Explictly remember file permissions on shebang rewrite.
+
+ -- Folker Bernitt <fbernitt@thoughtworks.com>  Wed, 26 Aug 2015 11:23:42 +0000
+
 pixpybuild (0.2.1) unstable; urgency=low
 
   * Fix: First create virtualenv, then use python and pip within it

@@ -247,9 +247,9 @@ sub install_python {
     if (-T $pth_file) {
 	    my $mode = (stat($pth_file))[2];  # remember perms as edit_file does not keep them
 
-            print "$builddir$install_root(.*)\n";
+            print "$builddir$install_root\n";
 
-	    edit_file { s|^$builddir$install_root|$install_root| } $pth_file;
+	    edit_file { s|$builddir$install_root|$install_root|g } $pth_file;
 
 	    chmod $mode & 07777, $pth_file;
     } else {
